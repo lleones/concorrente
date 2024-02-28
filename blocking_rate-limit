@@ -1,0 +1,28 @@
+executing = []
+mutex = new Semaphore(1)
+execSemaphore = new Semaphore (n)
+
+handle(Request req, int n):
+    mutex.down()
+
+    if executing [0] + executing[1] > 0:
+        if executing[req.getType()] == 0:
+            wait(CV, mutex)
+    executing[req.getType()]++
+
+    mutex.up()
+
+# FALTA RESOLVER STARVATION
+
+    execSemaphore.down()
+    exec(req)
+    execSemaphore.up()
+
+
+
+    mutex.down()
+
+    if (executing[--req.getType()]) == 0:
+        broadcast(CV)
+
+    mutex.up()
