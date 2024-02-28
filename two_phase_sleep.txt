@@ -1,0 +1,25 @@
+MotherThread(n){
+    threads[]
+    contador = 0
+    catraca = 0
+    
+    for a in range(len(n)):
+        thread = new Thread(contador++)
+
+}
+
+Thread(n){
+    num1 = randint(0, 5)
+    sleep(num1)
+
+    mutex.down()
+    catraca++
+    if catraca == n:
+        mutex.up()
+    mutex.up()
+
+    num2 = randint(0,10)
+
+    threads[n] = num2
+    sleep(threads[n - 1])
+}
