@@ -1,0 +1,25 @@
+MotherThread(n){
+    mutex = new Semaphore(1)
+    terminou = new Semaphore(0)
+    
+    contador = 0
+    
+    for a in range(len(n))
+        thread = new Thread()
+    
+    terminou.down()
+    print(n)
+}
+
+Thread{
+    num = randint(0, 5)
+    sleep(num)
+
+    ...
+
+    mutex.down()
+    contador++
+    if contador == n:
+        terminou.up()
+    mutex.up()
+}
