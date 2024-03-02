@@ -1,0 +1,32 @@
+Processo consumindo as informações providas pelo SO:
+void receive() {
+    for (;;) {
+        is_full.down()
+        
+        mutex.down()
+        byte[] = getDataPacket();
+        mutex.up()
+        
+        is_empty.up()
+    }
+}
+
+# SO lendo o buffer e produzindo a informação:
+void handle() {
+    for (;;) {
+        byte[][] data = readNetBuffer();
+        
+        is_empty.down()
+        
+        mutex.down()
+        fillPackets(data);
+        mutex.up()
+        
+        is_full.up()
+    }
+}
+
+Semáforos:
+mutex = new Sempahore(1) - exclusão múltipla da memória
+is_empty = new Semaphore(1)
+is_full = new Semaphore(0)
