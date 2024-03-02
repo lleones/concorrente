@@ -1,26 +1,35 @@
+
+main(){
+
 buffer = new Semaphore(n);
 rendezvous = new Semaphore(1);
 mutex = new Semaphore(1)
 gets = 0;
 posts = 0;
 
+}
+
+
 handle_post(){
     buffer.down();
 
-    mutex.down();
-    if gets >= 0{
+    rendezvous.down();
+    if gets > 0{
         wait(cv, rendezvous);
     }
+    rendezvous.up()
 
-    posts += 1;
+    mutex.down();
+    posts++;
     mutex.up();
+    
     do_post();
 
     mutex.down();
     if (--posts == 0){
         broadcast(cv);
     }
-    mutes.up();
+    mutex.up();
 
     buffer.up();
 }
@@ -28,11 +37,13 @@ handle_post(){
 handle_get(){
     buffer.down();
 
-    mutex.down();
-    if(posts >= 0){
-        wait(cv, mutex);
+    rendezvous.down();
+    if(posts > 0){
+        wait(cv, rendezvous);
     }
+    rendezvous.up();
 
+    mutex.down();
     gets += 1;
     mutex.up()
 
