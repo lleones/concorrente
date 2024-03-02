@@ -1,0 +1,34 @@
+main(){
+    mutex = new Semaphore(k)
+    threads_executando = n
+    tem_requisicao = new Semaphore(0)
+}
+
+Request{
+    void run(){
+        mutex.down();
+        if threads_executando == k:
+            mutex.up();
+            poison();
+
+        threads_executando++;
+        mutex.up();
+
+        encrypt();
+        
+        tem_requisicao.up();
+
+        mutex.down();
+        threads_executando--;
+        mutex.up();
+    }
+}
+
+Attend{
+    void handle() {
+        for(;;) {
+            tem_requisicao.down();
+            generateKey();
+        }
+    }
+}
