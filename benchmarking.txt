@@ -1,0 +1,32 @@
+Semafóros:
+mutex = new Semaphore(1)
+terminou_sempahore = new Semaphore(0)
+tempo_sempahore = new Semaphore(1)
+
+tempo = 0
+threads_criadas = 0
+
+    while threads_criadas < num_threads:
+        mutex.down()
+        threads_criadas ++
+        mutex.signal()
+        
+        Thread t = new Thread()
+
+        if threads_criadas == num_threads:
+            terminou_sempahore.up()
+        mutex.up()
+
+    terminou_sempahore.down()
+    reutn tempo
+
+Thread{
+    inicio = getTimestamp()
+
+    targetMap.put(randint(), randint())
+
+    tempo_semaphore.down()
+    tempo += inicio - getTimestamp()
+    tempo_semaphore.up()
+
+}
