@@ -1,28 +1,29 @@
-executing = []
-mutex = new Semaphore(1)
-execSemaphore = new Semaphore (n)
+Semaphore max_requests = new Semaphore(N);
+executando = 0;
+type_executing = null;
 
-handle(Request req, int n):
-    mutex.down()
+func handle(Request req) {
+    max_requests.down();
 
-    if executing [0] + executing[1] > 0:
-        if executing[req.getType()] == 0:
-            wait(CV, mutex)
-    executing[req.getType()]++
+    type = req.type();
 
-    mutex.up()
+    mutex.down();
+    while executando > 0 and type != type_executing:
+            wait(cv, mutex);
+    
+    executando++;
+    type_executing = type;
 
-# FALTA RESOLVER STARVATION
+    mutex.up();
 
-    execSemaphore.down()
     exec(req)
-    execSemaphore.up()
 
+    mutex.down();
 
+    if --executando == 0:
+        type_executing = null;
+        broadcast(cv);
+    mutex.up();
 
-    mutex.down()
-
-    if (executing[--req.getType()]) == 0:
-        broadcast(CV)
-
-    mutex.up()
+    max_requests.up();
+}
