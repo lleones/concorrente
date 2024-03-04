@@ -1,25 +1,23 @@
-MotherThread(n){
-    mutex = new Semaphore(1)
-    terminou = new Semaphore(0)
+main(int n_threads){
+    executadas = 0;
+    Sempahore mutex = new Semaphore(1);
     
-    contador = 0
-    
-    for a in range(len(n))
-        thread = new Thread()
-    
-    terminou.down()
-    print(n)
+    for a in range(len(n_threads)){
+        Thread();
+    }
+
+    while(1){
+        if executadas == n_threads:
+            break;
+    }
+
+    print(n_threads)
 }
 
-Thread{
-    num = randint(0, 5)
-    sleep(num)
+Thread(){
+    sleep(randint(, 5));
 
-    ...
-
-    mutex.down()
-    contador++
-    if contador == n:
-        terminou.up()
-    mutex.up()
+    mutex.down();
+    executadas++;
+    mutex.up();
 }
